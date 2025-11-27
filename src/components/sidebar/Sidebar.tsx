@@ -3,6 +3,7 @@
 import { Location } from "@/types/location";
 
 import LocationList from "./LocationList";
+import { Login } from "./Login";
 import SidebarHeader from "./SidebarHeader";
 
 type SidebarProps = {
@@ -24,6 +25,7 @@ export default function Sidebar({
 }: SidebarProps) {
   return (
     <aside className="bg-gray-0 section-shadow flex h-[1200px] w-[248px] shrink-0 flex-col items-start gap-10 rounded-r-[48px] px-4 py-12">
+      <Login />
       <SidebarHeader onClickAdd={onClickAdd} />
 
       <div className="w-full px-4">
