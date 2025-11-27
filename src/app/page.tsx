@@ -13,6 +13,8 @@ import Sidebar from "@/components/sidebar/Sidebar";
 
 import { useSidebar } from "@/hooks/useSidebar";
 
+import { useUserStore } from "@/store/userStore";
+
 import { Location } from "@/types/location";
 
 const INITIAL_LOCATIONS: Location[] = [
@@ -56,26 +58,33 @@ const Home = () => {
   const selectedLocation =
     locations.find(location => location.id === selectedId) ?? null;
   const LOCATION = selectedLocation?.name ?? "";
-
+  const userId = useUserStore(state => state.id);
   return (
     <div className="bg-gray-5 flex min-h-screen w-full">
-      {/* SIDE BAR */}
-      <Sidebar
-        locations={locations}
-        selectedId={selectedId}
-        onSelect={handleSelect}
-        onClickAdd={openAddModal}
-        onClickDelete={handleRequestDelete}
-        onTogglePin={handleTogglePin}
-      />
+      <div className="sticky top-0 h-screen">
+        <Sidebar
+          locations={locations}
+          selectedId={selectedId}
+          onSelect={handleSelect}
+          onClickAdd={openAddModal}
+          onClickDelete={handleRequestDelete}
+          onTogglePin={handleTogglePin}
+        />
+      </div>
 
-      <main className="flex flex-1 flex-col items-center justify-center gap-6">
-        {!LOCATION ? (
+      <main className="overflow-auto-y flex flex-1 flex-col items-center justify-center gap-6">
+        {!LOCATION || !userId ? (
           <>
             <WeatherIconDisplay weather="clouds" width={320} height={320} />
-            <div className="text-h2 text-gray-100">
-              아직 선택된 위치가 없습니다!
-            </div>
+            {!userId ? (
+              <div className="text-h2 text-gray-100">
+                로그인 후 사용해주세요!
+              </div>
+            ) : (
+              <div className="text-h2 text-gray-100">
+                아직 선택된 위치가 없습니다!
+              </div>
+            )}
           </>
         ) : (
           <>

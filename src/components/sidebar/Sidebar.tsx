@@ -40,7 +40,7 @@ export default function Sidebar({
     }
   };
   return (
-    <aside className="bg-gray-0 section-shadow flex h-[1200px] w-[248px] shrink-0 flex-col items-start gap-10 rounded-r-[48px] px-4 py-12">
+    <aside className="bg-gray-0 section-shadow flex h-screen w-[248px] shrink-0 flex-col items-start gap-10 rounded-r-[48px] px-4 py-12">
       {username ? (
         <div className="border-gray-20 flex w-full items-center justify-evenly border p-2">
           <div>{username}님</div>
