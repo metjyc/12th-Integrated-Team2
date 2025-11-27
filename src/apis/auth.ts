@@ -22,7 +22,6 @@ export const login = async (username: string, password: string) => {
     return res.data;
   } catch (error) {
     console.error("로그인에러: ", error);
-    throw error;
   }
 };
 
@@ -30,6 +29,6 @@ export const logout = async () => {
   try {
     const res = await apiClient.post("/auth/logout", {});
   } catch (error) {
-    console.log("로그아웃에러: ", error);
+    console.error("로그아웃에러: ", error);
   }
 };
