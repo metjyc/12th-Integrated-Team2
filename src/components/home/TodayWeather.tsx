@@ -5,12 +5,14 @@ import { WIND_DIRECTION_LABEL } from "@/constants/windDirectionMap";
 
 import currentWeatherData from "@/mocks/todayWeather.json";
 
+import { WeatehrProps } from "@/types/weather.types";
+
 import { getWeatherIconKey } from "@/utils/getWeatherIconKey";
 
 import { ColorInfoSection } from "./ColorInfoSection";
 import { WeatherIconDisplay } from "./WeatherIconDisplay";
 
-export const TodayWeather = () => {
+export const TodayWeather = ({ lat, lon }: WeatehrProps) => {
   const data = currentWeatherData.currentWeather;
   const windDirectionCode = data.windDirection;
   const windDirection = WIND_DIRECTION_LABEL[windDirectionCode] ?? "알 수 없음";

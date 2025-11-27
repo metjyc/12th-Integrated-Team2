@@ -4,12 +4,14 @@ import { useState } from "react";
 import hourlyWeatherData from "@/mocks/hourlyWeather.json";
 import currentWeather from "@/mocks/todayWeather.json";
 
+import { WeatehrProps } from "@/types/weather.types";
+
 import { formatLocalHour } from "@/utils/formatLocalTime";
 import { getWeatherIconKey } from "@/utils/getWeatherIconKey";
 
 import { WeatherIconDisplay } from "./WeatherIconDisplay";
 
-export const HourlyWeather = () => {
+export const HourlyWeather = ({ lat, lon }: WeatehrProps) => {
   const { sunrise, sunsetTime } = currentWeather.currentWeather;
 
   const [page, setPage] = useState(0);
