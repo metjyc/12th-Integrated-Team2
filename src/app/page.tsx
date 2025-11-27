@@ -11,9 +11,9 @@ import AddLocationModal from "@/components/modal/AddLocationModal/AddLocationMod
 import ConfirmDeleteModal from "@/components/modal/ConfirmDeleteModal";
 import Sidebar from "@/components/sidebar/Sidebar";
 
-import { Location } from "@/types/location";
+import { useSidebar } from "@/hooks/useSidebar";
 
-import { useSidebar } from "../hooks/useSidebar";
+import { Location } from "@/types/location";
 
 const INITIAL_LOCATIONS: Location[] = [
   {
