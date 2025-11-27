@@ -34,6 +34,9 @@ const INITIAL_LOCATIONS: Location[] = [
   },
 ];
 
+const LAT = INITIAL_LOCATIONS[0].lat;
+const LON = INITIAL_LOCATIONS[0].lng;
+
 const Home = () => {
   const date = formatLocalDate();
   const {
@@ -75,7 +78,7 @@ const Home = () => {
       <main className="overflow-auto-y flex flex-1 flex-col items-center justify-center gap-6">
         {!LOCATION || !userId ? (
           <>
-            <WeatherIconDisplay weather="clouds" width={320} height={320} />
+            <WeatherIconDisplay weather="Clouds" width={320} height={320} />
             {!userId ? (
               <div className="text-h2 text-gray-100">
                 로그인 후 사용해주세요!
@@ -89,15 +92,15 @@ const Home = () => {
         ) : (
           <>
             <WeatherSection title={`${date} ${LOCATION} 날씨 현황`}>
-              <TodayWeather />
+              <TodayWeather lat={LAT} lon={LON} />
             </WeatherSection>
 
             <WeatherSection title="시간별 현황" gap={4}>
-              <HourlyWeather />
+              <HourlyWeather lat={LAT} lon={LON} />
             </WeatherSection>
 
             <WeatherSection title="주간 예보">
-              <WeeklyWeather />
+              <WeeklyWeather lat={LAT} lon={LON} />
             </WeatherSection>
           </>
         )}
