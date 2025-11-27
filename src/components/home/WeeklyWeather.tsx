@@ -2,6 +2,8 @@ import { WeatherIconKey } from "@/constants/weatherIconMap";
 
 import weeklyWeatherDate from "@/mocks/weeklyWeather.json";
 
+import { WeatehrProps } from "@/types/weather.types";
+
 import {
   formatLocalDateWithDot,
   getKoreanDayLabel,
@@ -9,7 +11,7 @@ import {
 
 import { WeatherIconDisplay } from "./WeatherIconDisplay";
 
-export const WeeklyWeather = () => {
+export const WeeklyWeather = ({ lat, lon }: WeatehrProps) => {
   return (
     <div className="flex w-full justify-between px-6 py-3">
       {weeklyWeatherDate.weeklyWeather.map(data => {

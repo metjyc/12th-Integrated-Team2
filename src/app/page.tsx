@@ -11,9 +11,11 @@ import AddLocationModal from "@/components/modal/AddLocationModal/AddLocationMod
 import ConfirmDeleteModal from "@/components/modal/ConfirmDeleteModal";
 import Sidebar from "@/components/sidebar/Sidebar";
 
-import { Location } from "@/types/location";
+import { useSidebar } from "@/hooks/useSidebar";
 
-import { useSidebar } from "../hooks/useSidebar";
+import { useUserStore } from "@/store/userStore";
+
+import { Location } from "@/types/location";
 
 const INITIAL_LOCATIONS: Location[] = [
   {
@@ -31,6 +33,9 @@ const INITIAL_LOCATIONS: Location[] = [
     lng: 127.0276,
   },
 ];
+
+const LAT = INITIAL_LOCATIONS[0].lat;
+const LON = INITIAL_LOCATIONS[0].lng;
 
 const Home = () => {
   const date = formatLocalDate();
@@ -56,39 +61,46 @@ const Home = () => {
   const selectedLocation =
     locations.find(location => location.id === selectedId) ?? null;
   const LOCATION = selectedLocation?.name ?? "";
-
+  const userId = useUserStore(state => state.id);
   return (
     <div className="bg-gray-5 flex min-h-screen w-full">
-      {/* SIDE BAR */}
-      <Sidebar
-        locations={locations}
-        selectedId={selectedId}
-        onSelect={handleSelect}
-        onClickAdd={openAddModal}
-        onClickDelete={handleRequestDelete}
-        onTogglePin={handleTogglePin}
-      />
+      <div className="sticky top-0 h-screen">
+        <Sidebar
+          locations={locations}
+          selectedId={selectedId}
+          onSelect={handleSelect}
+          onClickAdd={openAddModal}
+          onClickDelete={handleRequestDelete}
+          onTogglePin={handleTogglePin}
+        />
+      </div>
 
-      <main className="flex flex-1 flex-col items-center justify-center gap-6">
-        {!LOCATION ? (
+      <main className="overflow-auto-y flex flex-1 flex-col items-center justify-center gap-6">
+        {!LOCATION || !userId ? (
           <>
-            <WeatherIconDisplay weather="clouds" width={320} height={320} />
-            <div className="text-h2 text-gray-100">
-              아직 선택된 위치가 없습니다!
-            </div>
+            <WeatherIconDisplay weather="Clouds" width={320} height={320} />
+            {!userId ? (
+              <div className="text-h2 text-gray-100">
+                로그인 후 사용해주세요!
+              </div>
+            ) : (
+              <div className="text-h2 text-gray-100">
+                아직 선택된 위치가 없습니다!
+              </div>
+            )}
           </>
         ) : (
           <>
             <WeatherSection title={`${date} ${LOCATION} 날씨 현황`}>
-              <TodayWeather />
+              <TodayWeather lat={LAT} lon={LON} />
             </WeatherSection>
 
             <WeatherSection title="시간별 현황" gap={4}>
-              <HourlyWeather />
+              <HourlyWeather lat={LAT} lon={LON} />
             </WeatherSection>
 
             <WeatherSection title="주간 예보">
-              <WeeklyWeather />
+              <WeeklyWeather lat={LAT} lon={LON} />
             </WeatherSection>
           </>
         )}

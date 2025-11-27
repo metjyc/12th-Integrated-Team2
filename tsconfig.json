@@ -27,8 +27,10 @@
       "@/context/*": ["src/context/*"],
       "@/apis/*": ["src/apis/*"],
       "@/types/*": ["src/types/*"],
+      "@/store/*": ["src/store/*"],
       "@/utils/*": ["src/utils/*"],
-      "@/mocks/*": ["src/mocks/*"]
+      "@/mocks/*": ["src/mocks/*"],
+      "@/hooks/*": ["src/hooks/*"]
     }
   },
   "include": [
